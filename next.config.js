@@ -6,6 +6,7 @@ const nextConfig = {
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,
+      layers: true,
     };
 
     // Configure proper handling for WebAssembly files
@@ -14,9 +15,20 @@ const nextConfig = {
       type: 'webassembly/async',
     });
 
+    // Polyfill for WebAssembly in older environments
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      };
+    }
+
     // Return the modified config
     return config;
   },
+  // Ensure output is properly handled for Vercel
+  output: 'standalone',
 };
 
 module.exports = nextConfig; 
