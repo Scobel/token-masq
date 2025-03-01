@@ -1,6 +1,6 @@
 # Token Masq
 
-A minimalist token decoder that transforms CL100K_BASE tokens (used by GPT-4 and ChatGPT) back to English text with a sleek scramble animation effect.
+A minimalist token decoder that transforms CL100K_BASE tokens (used by GPT-4 and ChatGPT) back to English text and vice versa.
 
 ## Features
 
