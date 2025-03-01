@@ -82,9 +82,6 @@ export default function Home() {
 
       <div className="flex min-h-screen items-center justify-center bg-black">
         <div className="w-full max-w-3xl px-4">
-          <h1 className="text-center text-2xl font-bold mb-8 text-white">
-            <span className="text-green-500">Token</span>Masq
-          </h1>
           <form onSubmit={handleSubmit} className="flex flex-col items-center">
             <AnimatePresence mode="wait">
               {!outputText ? (
@@ -100,18 +97,10 @@ export default function Home() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     placeholder="Enter tokens or English text..."
-                    className="terminal-input w-full px-4 py-3 bg-black text-green-500 border border-green-500 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="terminal-input"
                     autoFocus
                     disabled={isProcessing}
                   />
-                  
-                  <button
-                    type="submit"
-                    className="mt-4 px-6 py-2 bg-green-500 text-black font-bold rounded hover:bg-green-400 transition-colors disabled:opacity-50"
-                    disabled={isProcessing || !inputText.trim()}
-                  >
-                    {isProcessing ? 'Processing...' : 'Process'}
-                  </button>
                   
                   {error && (
                     <div className="mt-4 text-red-500 text-center">{error}</div>
@@ -125,12 +114,9 @@ export default function Home() {
                   className="w-full text-center py-4 cursor-pointer"
                   onClick={resetProcessor}
                 >
-                  <div className="mb-2 text-xs text-gray-500">
-                    {mode === 'decode' ? '🔄 Decoded from tokens' : '🔄 Encoded to tokens'}
-                  </div>
                   <TextScramble
                     text={outputText}
-                    className="terminal-output w-full px-4 py-3 bg-black text-green-500 border border-green-500 rounded overflow-auto max-h-60"
+                    className="terminal-output"
                     scrambleFactor={24}
                     scrambleSpeed={60}
                   />
