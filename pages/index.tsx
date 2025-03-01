@@ -7,8 +7,9 @@ import { TextScramble } from '@/components/TextScramble';
 export default function Home() {
   const [inputText, setInputText] = useState<string>('');
   const [outputText, setOutputText] = useState<string>('');
-  const [isDecoding, setIsDecoding] = useState<boolean>(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [mode, setMode] = useState<'encode' | 'decode'>('decode');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -18,35 +19,53 @@ export default function Home() {
     if (!inputText.trim()) return;
     
     try {
-      setIsDecoding(true);
+      setIsProcessing(true);
       
-      // Parse token numbers
-      const tokenArray = inputText
-        .split(/\s+/)
-        .filter(t => t.trim())
-        .map(t => {
-          const parsed = parseInt(t.trim(), 10);
-          if (isNaN(parsed)) {
-            throw new Error(`Invalid token: ${t}`);
-          }
-          return parsed;
-        });
-
-      // Decode tokens
+      // Detect if input is tokens or English text
+      const words = inputText.split(/\s+/).filter(t => t.trim());
+      const tokenCount = words.filter(t => {
+        const parsed = parseInt(t.trim(), 10);
+        return !isNaN(parsed);
+      }).length;
+      
+      // If more than 80% of words are numbers, treat as tokens
+      const isTokens = tokenCount / words.length > 0.8;
+      
       const enc = get_encoding("cl100k_base");
-      const bytes = enc.decode(new Uint32Array(tokenArray));
-      const text = new TextDecoder().decode(bytes);
       
-      setOutputText(text);
+      if (isTokens) {
+        // Decode tokens to text
+        setMode('decode');
+        const tokenArray = inputText
+          .split(/\s+/)
+          .filter(t => t.trim())
+          .map(t => {
+            const parsed = parseInt(t.trim(), 10);
+            if (isNaN(parsed)) {
+              throw new Error(`Invalid token: ${t}`);
+            }
+            return parsed;
+          });
+
+        const bytes = enc.decode(new Uint32Array(tokenArray));
+        const text = new TextDecoder().decode(bytes);
+        
+        setOutputText(text);
+      } else {
+        // Encode text to tokens
+        setMode('encode');
+        const tokens = enc.encode(inputText);
+        setOutputText(tokens.join(' '));
+      }
     } catch (error) {
       console.error('Error:', error);
-      setError(error instanceof Error ? error.message : 'Failed to decode tokens');
+      setError(error instanceof Error ? error.message : 'Failed to process input');
     } finally {
-      setIsDecoding(false);
+      setIsProcessing(false);
     }
   };
 
-  const resetDecoder = () => {
+  const resetProcessor = () => {
     setOutputText('');
     setInputText('');
     setTimeout(() => inputRef.current?.focus(), 100);
@@ -56,7 +75,7 @@ export default function Home() {
     <>
       <Head>
         <title>Token Masq</title>
-        <meta name="description" content="Transform CL100K_BASE tokens to English text with a sleek animation" />
+        <meta name="description" content="Transform between CL100K_BASE tokens and English text with a sleek animation" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -77,10 +96,10 @@ export default function Home() {
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Enter tokens..."
+                    placeholder="Enter tokens or English text..."
                     className="terminal-input"
                     autoFocus
-                    disabled={isDecoding}
+                    disabled={isProcessing}
                   />
                   
                   {error && (
@@ -93,7 +112,7 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="w-full text-center py-4 cursor-pointer"
-                  onClick={resetDecoder}
+                  onClick={resetProcessor}
                 >
                   <TextScramble
                     text={outputText}
@@ -105,9 +124,9 @@ export default function Home() {
               )}
             </AnimatePresence>
             
-            {isDecoding && (
+            {isProcessing && (
               <div className="mt-4 text-center text-sm opacity-50">
-                Decoding...
+                {mode === 'decode' ? 'Decoding...' : 'Encoding...'}
               </div>
             )}
           </form>
