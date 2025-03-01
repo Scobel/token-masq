@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+html, body {
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Terminal input styling */
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 1.75rem;
+  width: 100%;
+  outline: none;
+  caret-color: #fff;
+  padding: 0;
+  text-align: center;
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.terminal-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Terminal output styling */
+.terminal-output {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 1.75rem;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  text-align: center;
+  min-height: 3rem;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 3rem;
+}
+
+/* Glitch effect on hover */
+.terminal-output:hover {
+  text-shadow: 
+    0.05em 0 0 rgba(255, 0, 0, 0.75),
+    -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  animation: glitch 750ms infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 
+      0.05em 0 0 rgba(255, 0, 0, 0.75),
+      -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  15% {
+    text-shadow: 
+      -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+      0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+      -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  50% {
+    text-shadow: 
+      0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+      0.05em 0 0 rgba(0, 255, 0, 0.75),
+      0 -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+  100% {
+    text-shadow: 
+      -0.025em 0 0 rgba(255, 0, 0, 0.75),
+      -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+      -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+}
+
+/* Basic Box Model */
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: #e5e5e5;
+    background: #121212;
+  }
+} 

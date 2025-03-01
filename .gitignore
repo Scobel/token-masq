@@ -1,0 +1,75 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# package manager locks
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+.next/
+next-env.d.ts
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+*.pem
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE specific files
+.idea
+.vscode
+*.swp
+*.swo
+.DS_Store
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Empty component files we created to replace ShadCN components
+components/ui/button.tsx
+components/ui/input.tsx
+lib/utils.ts
