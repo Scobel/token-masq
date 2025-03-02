@@ -10,6 +10,7 @@ export default function Home() {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<'encode' | 'decode'>('decode');
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -71,6 +72,10 @@ export default function Home() {
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
+  const toggleInfo = () => {
+    setShowInfo(!showInfo);
+  };
+
   return (
     <>
       <Head>
@@ -130,6 +135,48 @@ export default function Home() {
               </div>
             )}
           </form>
+        </div>
+        
+        {/* Info Icon */}
+        <div className="fixed bottom-4 right-4">
+          <button 
+            onClick={toggleInfo}
+            className="w-8 h-8 rounded-full bg-green-500 text-black flex items-center justify-center focus:outline-none hover:bg-green-400 transition-colors"
+            aria-label="Information"
+          >
+            i
+          </button>
+          
+          {/* Info Overlay */}
+          <AnimatePresence>
+            {showInfo && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute bottom-10 right-0 w-64 p-4 bg-black border border-green-500 rounded shadow-lg text-green-500 text-sm"
+              >
+                <h3 className="font-bold mb-2">About TokenMasq</h3>
+                <p className="mb-2">
+                  This tool automatically detects and converts between:
+                </p>
+                <ul className="list-disc pl-5 mb-2">
+                  <li>CL100K_BASE tokens → English text</li>
+                  <li>English text → CL100K_BASE tokens</li>
+                </ul>
+                <p>
+                  Just enter either format and the tool will automatically detect and convert it.
+                </p>
+                <button 
+                  onClick={toggleInfo}
+                  className="absolute top-2 right-2 text-green-500 hover:text-green-400"
+                  aria-label="Close"
+                >
+                  ✕
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </>
