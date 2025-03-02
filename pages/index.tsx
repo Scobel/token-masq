@@ -10,6 +10,7 @@ export default function Home() {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<'encode' | 'decode'>('decode');
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -71,6 +72,10 @@ export default function Home() {
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
+  const toggleInfo = () => {
+    setShowInfo(!showInfo);
+  };
+
   return (
     <>
       <Head>
@@ -78,6 +83,7 @@ export default function Home() {
         <meta name="description" content="Transform between CL100K_BASE tokens and English text with a sleek animation" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </Head>
 
       <div className="flex min-h-screen items-center justify-center bg-black">
@@ -130,6 +136,47 @@ export default function Home() {
               </div>
             )}
           </form>
+        </div>
+        
+        {/* Info Icon */}
+        <div className="fixed bottom-3 right-3">
+          <button 
+            onClick={toggleInfo}
+            className="w-5 h-5 rounded-full border border-white/20 text-white/50 flex items-center justify-center focus:outline-none hover:text-white/70 hover:border-white/30 transition-colors"
+            aria-label="Information"
+          >
+            <i className="fas fa-info text-[10px]"></i>
+          </button>
+          
+          {/* Info Overlay */}
+          <AnimatePresence>
+            {showInfo && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute bottom-8 right-0 w-56 p-3 bg-black border border-white/20 rounded shadow-lg text-white/70 text-[10px] leading-tight"
+              >
+                <p className="mb-1.5">
+                  This tool automatically detects and converts between:
+                </p>
+                <ul className="list-disc pl-4 mb-1.5 space-y-0.5">
+                  <li>CL100K_BASE tokens → English text</li>
+                  <li>English text → CL100K_BASE tokens</li>
+                </ul>
+                <p>
+                  Just enter either format and the tool will automatically detect and convert it.
+                </p>
+                <button 
+                  onClick={toggleInfo}
+                  className="absolute top-1.5 right-1.5 text-white/50 hover:text-white/70 text-[10px]"
+                  aria-label="Close"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </>
