@@ -138,14 +138,37 @@ export default function Home() {
           </form>
         </div>
         
-        {/* Info Icon */}
-        <div className="fixed bottom-3 right-3">
+        {/* Social Icons */}
+        <div className="fixed bottom-3 right-3 flex space-x-2">
+          {/* GitHub Icon */}
+          <a 
+            href="https://github.com/Scobel/token-masq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-5 h-5 rounded-full border border-white/20 text-white/50 flex items-center justify-center focus:outline-none hover:text-white/70 hover:border-white/30 transition-colors"
+            aria-label="GitHub Repository"
+          >
+            <i className="fa-brands fa-github text-[10px]"></i>
+          </a>
+          
+          {/* X (Twitter) Icon */}
+          <a 
+            href="https://www.x.com/scobelverse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-5 h-5 rounded-full border border-white/20 text-white/50 flex items-center justify-center focus:outline-none hover:text-white/70 hover:border-white/30 transition-colors"
+            aria-label="X (Twitter) Profile"
+          >
+            <i className="fa-brands fa-x-twitter text-[10px]"></i>
+          </a>
+          
+          {/* Info Icon */}
           <button 
             onClick={toggleInfo}
             className="w-5 h-5 rounded-full border border-white/20 text-white/50 flex items-center justify-center focus:outline-none hover:text-white/70 hover:border-white/30 transition-colors"
             aria-label="Information"
           >
-            <i className="fas fa-info text-[10px]"></i>
+            <i className="fa-solid fa-info text-[10px]"></i>
           </button>
           
           {/* Info Overlay */}

@@ -2,13 +2,6 @@
 
 A minimalist token decoder that transforms CL100K_BASE tokens (used by GPT-4 and ChatGPT) back to English text and vice versa.
 
-## Features
-
-- Clean, minimal black interface
-- Enter token numbers and see them transform to readable text
-- Dramatic scramble/glitch animation during decoding
-- Hover effects with RGB color shifting
-
 ## Getting Started
 
 ### Prerequisites
@@ -46,13 +39,8 @@ pnpm build
 3. Watch the scramble animation as tokens transform to text
 4. Click anywhere on the decoded text to reset and enter new tokens
 
-## Technology Stack
-
-- Next.js 15 with TypeScript
-- Framer Motion for animations
-- TikToken library for token decoding
-- Tailwind CSS for minimal styling
+Thanks to [@dqbd](https://github.com/dqbd) for the [tiktoken](https://github.com/dqbd/tiktoken) library.
 
 ## License
 
-MIT 
+MIT Licence
