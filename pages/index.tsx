@@ -83,6 +83,7 @@ export default function Home() {
         <meta name="description" content="Transform between CL100K_BASE tokens and English text with a sleek animation" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </Head>
 
       <div className="flex min-h-screen items-center justify-center bg-black">
@@ -138,13 +139,13 @@ export default function Home() {
         </div>
         
         {/* Info Icon */}
-        <div className="fixed bottom-4 right-4">
+        <div className="fixed bottom-3 right-3">
           <button 
             onClick={toggleInfo}
-            className="w-8 h-8 rounded-full bg-green-500 text-black flex items-center justify-center focus:outline-none hover:bg-green-400 transition-colors"
+            className="w-5 h-5 rounded-full border border-white/20 text-white/50 flex items-center justify-center focus:outline-none hover:text-white/70 hover:border-white/30 transition-colors"
             aria-label="Information"
           >
-            i
+            <i className="fas fa-info text-[10px]"></i>
           </button>
           
           {/* Info Overlay */}
@@ -154,13 +155,12 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute bottom-10 right-0 w-64 p-4 bg-black border border-green-500 rounded shadow-lg text-green-500 text-sm"
+                className="absolute bottom-8 right-0 w-56 p-3 bg-black border border-white/20 rounded shadow-lg text-white/70 text-[10px] leading-tight"
               >
-                <h3 className="font-bold mb-2">About TokenMasq</h3>
-                <p className="mb-2">
+                <p className="mb-1.5">
                   This tool automatically detects and converts between:
                 </p>
-                <ul className="list-disc pl-5 mb-2">
+                <ul className="list-disc pl-4 mb-1.5 space-y-0.5">
                   <li>CL100K_BASE tokens → English text</li>
                   <li>English text → CL100K_BASE tokens</li>
                 </ul>
@@ -169,10 +169,10 @@ export default function Home() {
                 </p>
                 <button 
                   onClick={toggleInfo}
-                  className="absolute top-2 right-2 text-green-500 hover:text-green-400"
+                  className="absolute top-1.5 right-1.5 text-white/50 hover:text-white/70 text-[10px]"
                   aria-label="Close"
                 >
-                  ✕
+                  <i className="fas fa-times"></i>
                 </button>
               </motion.div>
             )}
