@@ -102,7 +102,7 @@ export default function Home() {
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Enter tokens or English text..."
+                    placeholder="Enter AI Tokens or Human English..."
                     className="terminal-input"
                     autoFocus
                     disabled={isProcessing}
