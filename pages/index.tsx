@@ -2,7 +2,7 @@ import { useState, FormEvent, useRef } from 'react';
 import Head from 'next/head';
 import { get_encoding } from '@dqbd/tiktoken';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TextScramble } from '@/components/TextScramble';
+import { TextScramble } from '@/components/text-scramble';
 
 export default function Home() {
   const [inputText, setInputText] = useState<string>('');
